@@ -2,6 +2,8 @@ let computerScore = 0,
   playerScore = 0;
 
 const results = document.querySelector("#results");
+const comp = document.querySelector("#compScore");
+const play = document.querySelector("#playerScore");
 
 const getComputerChoice = () => {
   const choices = ["rock", "paper", "scissors"];
@@ -46,6 +48,13 @@ const playRound = (playerSelection, computerSelection) => {
   }
   resultMessage.textContent = result;
   results.appendChild(resultMessage);
+  comp.textContent = `Computer Score: ${computerScore}`;
+  play.textContent = `Player Score: ${playerScore}`;
+  playerScore === 5
+    ? alert("Player wins!")
+    : computerScore === 5
+    ? alert("Computer Wins!")
+    : "";
   return result;
 };
 
