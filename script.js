@@ -10,13 +10,21 @@ const getComputerChoice = () => {
   return choices[Math.floor(Math.random() * choices.length)];
 };
 
-const playRound = (playerSelection, computerSelection) => {
-  let player = playerSelection.toLowerCase();
-  if (player === computerSelection) {
-    return "Draw";
-  }
-  let result;
+const updateResult = (result) => {
   const resultMessage = document.createElement("p");
+  resultMessage.textContent = result;
+  results.appendChild(resultMessage);
+};
+
+const playRound = (playerSelection, computerSelection) => {
+  let result;
+  let player = playerSelection.toLowerCase();
+
+  if (player === computerSelection) {
+    result = "Draw";
+    updateResult(result);
+    return result;
+  }
   switch (player) {
     case "rock":
       if (computerSelection === "paper") {
@@ -46,8 +54,7 @@ const playRound = (playerSelection, computerSelection) => {
       }
       break;
   }
-  resultMessage.textContent = result;
-  results.appendChild(resultMessage);
+  updateResult(result);
   comp.textContent = `Computer Score: ${computerScore}`;
   play.textContent = `Player Score: ${playerScore}`;
   playerScore === 5
@@ -61,8 +68,7 @@ const playRound = (playerSelection, computerSelection) => {
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button) =>
   button.addEventListener("click", (e) => {
-    let computerMove = getComputerChoice();
-    playRound(e.target.id, computerMove);
+    playRound(e.target.id, getComputerChoice());
   })
 );
 
